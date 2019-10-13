@@ -36,7 +36,8 @@ namespace Kino
         [SerializeField, Range(0, 1)]
         float _scanLineJitter = 0;
 
-        public float scanLineJitter {
+        public float ScanLineJitter
+        {
             get { return _scanLineJitter; }
             set { _scanLineJitter = value; }
         }
@@ -46,7 +47,8 @@ namespace Kino
         [SerializeField, Range(0, 1)]
         float _verticalJump = 0;
 
-        public float verticalJump {
+        public float VerticalJump
+        {
             get { return _verticalJump; }
             set { _verticalJump = value; }
         }
@@ -56,7 +58,8 @@ namespace Kino
         [SerializeField, Range(0, 1)]
         float _horizontalShake = 0;
 
-        public float horizontalShake {
+        public float HorizontalShake
+        {
             get { return _horizontalShake; }
             set { _horizontalShake = value; }
         }
@@ -66,7 +69,8 @@ namespace Kino
         [SerializeField, Range(0, 1)]
         float _colorDrift = 0;
 
-        public float colorDrift {
+        public float ColorDrift
+        {
             get { return _colorDrift; }
             set { _colorDrift = value; }
         }
@@ -89,8 +93,10 @@ namespace Kino
         {
             if (_material == null)
             {
-                _material = new Material(_shader);
-                _material.hideFlags = HideFlags.DontSave;
+                _material = new Material(_shader)
+                {
+                    hideFlags = HideFlags.DontSave
+                };
             }
 
             _verticalJumpTime += Time.deltaTime * _verticalJump * 11.3f;
@@ -119,7 +125,7 @@ namespace Kino
 
             this._material = null;
         }
-        
+
         #endregion
     }
 }
