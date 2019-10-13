@@ -22,13 +22,11 @@
 //
 using UnityEngine;
 
-namespace Kino
-{
+namespace Kino {
     [ExecuteInEditMode]
     [RequireComponent(typeof(Camera))]
     [AddComponentMenu("Kino Image Effects/Analog Glitch")]
-    public class AnalogGlitch : MonoBehaviour
-    {
+    public class AnalogGlitch : MonoBehaviour {
         #region Public Properties
 
         // Scan line jitter
@@ -36,8 +34,7 @@ namespace Kino
         [SerializeField, Range(0, 1)]
         float _scanLineJitter = 0;
 
-        public float ScanLineJitter
-        {
+        public float ScanLineJitter {
             get { return _scanLineJitter; }
             set { _scanLineJitter = value; }
         }
@@ -47,8 +44,7 @@ namespace Kino
         [SerializeField, Range(0, 1)]
         float _verticalJump = 0;
 
-        public float VerticalJump
-        {
+        public float VerticalJump {
             get { return _verticalJump; }
             set { _verticalJump = value; }
         }
@@ -58,8 +54,7 @@ namespace Kino
         [SerializeField, Range(0, 1)]
         float _horizontalShake = 0;
 
-        public float HorizontalShake
-        {
+        public float HorizontalShake {
             get { return _horizontalShake; }
             set { _horizontalShake = value; }
         }
@@ -69,8 +64,7 @@ namespace Kino
         [SerializeField, Range(0, 1)]
         float _colorDrift = 0;
 
-        public float ColorDrift
-        {
+        public float ColorDrift {
             get { return _colorDrift; }
             set { _colorDrift = value; }
         }
@@ -89,13 +83,10 @@ namespace Kino
 
         #region MonoBehaviour Functions
 
-        void OnRenderImage(RenderTexture source, RenderTexture destination)
-        {
-            if (_material == null)
-            {
-                _material = new Material(_shader)
-                {
-                    hideFlags = HideFlags.DontSave
+        void OnRenderImage(RenderTexture source, RenderTexture destination) {
+            if (_material == null) {
+                _material = new Material(_shader) {
+                hideFlags = HideFlags.DontSave
                 };
             }
 
@@ -116,10 +107,8 @@ namespace Kino
             Graphics.Blit(source, destination, _material);
         }
 
-        private void OnDestroy()
-        {
-            if (this._material != null)
-            {
+        private void OnDestroy() {
+            if (this._material != null) {
                 GameObject.DestroyImmediate(this._material);
             }
 

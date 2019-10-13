@@ -1,10 +1,8 @@
 using UnityEditor;
 
-public class PackageTool
-{
+public class PackageTool {
     [MenuItem("Package/Update Package")]
-    static void UpdatePackage()
-    {
+    static void UpdatePackage() {
         AssetDatabase.ExportPackage("Assets/Kino", "KinoGlitch.unitypackage", ExportPackageOptions.Recurse);
     }
 }

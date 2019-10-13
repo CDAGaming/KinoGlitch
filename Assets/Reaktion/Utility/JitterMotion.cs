@@ -22,11 +22,9 @@
 //
 using UnityEngine;
 
-namespace Reaktion
-{
+namespace Reaktion {
 
-    public class JitterMotion : MonoBehaviour
-    {
+    public class JitterMotion : MonoBehaviour {
         public float positionFrequency = 0.2f;
         public float rotationFrequency = 0.2f;
 
@@ -47,15 +45,13 @@ namespace Reaktion
         Vector3 initialPosition;
         Quaternion initialRotation;
 
-        void Awake()
-        {
+        void Awake() {
             timePosition = Random.value * 10;
             timeRotation = Random.value * 10;
 
             noiseVectors = new Vector2[6];
 
-            for (var i = 0; i < 6; i++)
-            {
+            for (var i = 0; i < 6; i++) {
                 var theta = Random.value * Mathf.PI * 2;
                 noiseVectors[i].Set(Mathf.Cos(theta), Mathf.Sin(theta));
             }
@@ -64,13 +60,11 @@ namespace Reaktion
             initialRotation = transform.localRotation;
         }
 
-        void Update()
-        {
+        void Update() {
             timePosition += Time.deltaTime * positionFrequency;
             timeRotation += Time.deltaTime * rotationFrequency;
 
-            if (positionAmount != 0.0f)
-            {
+            if (positionAmount != 0.0f) {
                 var p = new Vector3(
                     Fbm(noiseVectors[0] * timePosition, positionOctave),
                     Fbm(noiseVectors[1] * timePosition, positionOctave),
@@ -80,8 +74,7 @@ namespace Reaktion
                 transform.localPosition = initialPosition + p;
             }
 
-            if (rotationAmount != 0.0f)
-            {
+            if (rotationAmount != 0.0f) {
                 var r = new Vector3(
                     Fbm(noiseVectors[3] * timeRotation, rotationOctave),
                     Fbm(noiseVectors[4] * timeRotation, rotationOctave),
@@ -92,12 +85,10 @@ namespace Reaktion
             }
         }
 
-        static float Fbm(Vector2 coord, int octave)
-        {
+        static float Fbm(Vector2 coord, int octave) {
             var f = 0.0f;
             var w = 1.0f;
-            for (var i = 0; i < octave; i++)
-            {
+            for (var i = 0; i < octave; i++) {
                 f += w * (Mathf.PerlinNoise(coord.x, coord.y) - 0.5f);
                 coord *= 2;
                 w *= 0.5f;

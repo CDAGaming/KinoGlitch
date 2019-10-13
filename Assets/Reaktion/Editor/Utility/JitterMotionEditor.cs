@@ -23,12 +23,10 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Reaktion
-{
+namespace Reaktion {
 
     [CustomEditor(typeof(JitterMotion)), CanEditMultipleObjects]
-    public class JitterMotionEditor : Editor
-    {
+    public class JitterMotionEditor : Editor {
         SerializedProperty propPositionFrequency;
         SerializedProperty propRotationFrequency;
 
@@ -45,8 +43,7 @@ namespace Reaktion
         GUIContent labelAmount;
         GUIContent labelOctave;
 
-        void OnEnable()
-        {
+        void OnEnable() {
             propPositionFrequency = serializedObject.FindProperty("positionFrequency");
             propRotationFrequency = serializedObject.FindProperty("rotationFrequency");
 
@@ -64,8 +61,7 @@ namespace Reaktion
             labelOctave = new GUIContent("Fractal Level");
         }
 
-        public override void OnInspectorGUI()
-        {
+        public override void OnInspectorGUI() {
             serializedObject.Update();
 
             EditorGUILayout.LabelField("Position");

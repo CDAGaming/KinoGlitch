@@ -22,20 +22,17 @@
 //
 using UnityEngine;
 
-namespace Kino
-{
+namespace Kino {
     [ExecuteInEditMode]
     [RequireComponent(typeof(Camera))]
     [AddComponentMenu("Kino Image Effects/Digital Glitch")]
-    public class DigitalGlitch : MonoBehaviour
-    {
+    public class DigitalGlitch : MonoBehaviour {
         #region Public Properties
 
         [SerializeField, Range(0, 1)]
         float _intensity = 0;
 
-        public float intensity
-        {
+        public float intensity {
             get { return _intensity; }
             set { _intensity = value; }
         }
@@ -55,13 +52,11 @@ namespace Kino
 
         #region Private Functions
 
-        static Color RandomColor()
-        {
+        static Color RandomColor() {
             return new Color(Random.value, Random.value, Random.value, Random.value);
         }
 
-        void SetUpResources()
-        {
+        void SetUpResources() {
             if (_material != null) return;
 
             _material = new Material(_shader);
@@ -80,14 +75,11 @@ namespace Kino
             UpdateNoiseTexture();
         }
 
-        void UpdateNoiseTexture()
-        {
+        void UpdateNoiseTexture() {
             var color = RandomColor();
 
-            for (var y = 0; y < _noiseTexture.height; y++)
-            {
-                for (var x = 0; x < _noiseTexture.width; x++)
-                {
+            for (var y = 0; y < _noiseTexture.height; y++) {
+                for (var x = 0; x < _noiseTexture.width; x++) {
                     if (Random.value > 0.89f) color = RandomColor();
                     _noiseTexture.SetPixel(x, y, color);
                 }
@@ -100,17 +92,14 @@ namespace Kino
 
         #region MonoBehaviour Functions
 
-        void Update()
-        {
-            if (Random.value > Mathf.Lerp(0.9f, 0.5f, _intensity))
-            {
+        void Update() {
+            if (Random.value > Mathf.Lerp(0.9f, 0.5f, _intensity)) {
                 SetUpResources();
                 UpdateNoiseTexture();
             }
         }
 
-        void OnRenderImage(RenderTexture source, RenderTexture destination)
-        {
+        void OnRenderImage(RenderTexture source, RenderTexture destination) {
             SetUpResources();
 
             // Update trash frames on a constant interval.
@@ -126,10 +115,8 @@ namespace Kino
             Graphics.Blit(source, destination, _material);
         }
 
-        private void OnDestroy()
-        {
-            if (this._material != null)
-            {
+        private void OnDestroy() {
+            if (this._material != null) {
                 GameObject.DestroyImmediate(this._material);
             }
 
